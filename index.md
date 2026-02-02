@@ -1,14 +1,36 @@
----
-title: Home
-nav_order: 1
----
+<!DOCTYPE html>
+<html>
+<head>
+  <title>US Cities Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+</head>
+<body>
 
-# 👋 Welcome
+  <div id="map" style="width: 100%; height: 600px;"></div>
 
-Hi! I’m **Your Name**, a [short description — e.g. researcher, map designer, etc.].
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-Use the links on the left (or top, depending on theme) to explore:
+  <script>
+    // Geographic center of continental United States
+    var map = L.map('map').setView([39.8283, -98.5795], 4);
 
-- [About Me](about.md)
-- [Projects](projects.md)
-- [Contact](contact.md)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Philadelphia, PA (required)
+    var philadelphia = L.marker([39.9526, -75.1652]).addTo(map)
+      .bindPopup('Philadelphia, PA');
+
+    // Denver, CO
+    var denver = L.marker([39.7392, -104.9903]).addTo(map)
+      .bindPopup('Denver, CO');
+
+    // Los Angeles, CA
+    var losAngeles = L.marker([34.0522, -118.2437]).addTo(map)
+      .bindPopup('Los Angeles, CA');
+
+  </script>
+
+</body>
+</html>
