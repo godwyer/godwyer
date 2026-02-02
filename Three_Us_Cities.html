@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>US Cities Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+</head>
+<body>
+
+  <div id="map" style="width: 100%; height: 600px;"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script>
+    // Geographic center of continental United States
+    var map = L.map('map').setView([39.8283, -98.5795], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Philadelphia, PA (required)
+    var philadelphia = L.marker([39.9526, -75.1652]).addTo(map)
+      .bindPopup('Philadelphia, PA');
+
+    // Denver, CO
+    var denver = L.marker([39.7392, -104.9903]).addTo(map)
+      .bindPopup('Denver, CO');
+
+    // Los Angeles, CA
+    var losAngeles = L.marker([34.0522, -118.2437]).addTo(map)
+      .bindPopup('Los Angeles, CA');
+
+  </script>
+
+</body>
+</html>
