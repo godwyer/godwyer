@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic Leaflet Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+</head>
+
+<body>
+
+  <div id="map" style="width: 600px; height: 400px"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="Parks.geojson"></script>
+
+  <script>
+
+    var map = L.map('map').setView([39.9526, -75.1652], 11);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/satellite-streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiZ2FycmV0dG9kd3llciIsImEiOiJjbWxwbnE4N3EwbHZ4M2ZwdzFqMjd2ZXRiIn0.miP26RUKq0Tm3w_evnw_Xg'
+}).addTo(map);
+
+    L.geoJson(Parks, {
+        pointToLayer: function(feature, latlng) {
+              console.log(feature.properties);
+              return L.circleMarker(latlng, {
+                radius: 5, 
+                color: 'green',
+                fillColor: 'lightgreen',
+                fillOpacity: 0.7
+              });   
+          },
+        onEachFeature: function(feature, layer) {
+    if (feature.properties.park_name) {
+        layer.bindPopup('<b>Facility Name:</b> <i>' + feature.properties.park_name + '</i>');
+    }
+},
+
+filter: function(feature, layer){
+          if(feature.properties.park_name === 'Frank Glavin Playground'){
+              return true
+                        };
+        
+      }
+
+    }).addTo(map);
+
+  
+
+  </script>
+
+</body>
+</html>
