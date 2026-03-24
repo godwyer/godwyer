@@ -1,0 +1,148 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Data-driven continuous color | Sample | ArcGIS Maps SDK for JavaScript 4.28</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.28/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/widgets/Legend"], (
+        Map,
+        MapView,
+        FeatureLayer,
+        Legend
+      ) => {
+        const defaultSym = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [128, 128, 128, 0.2],
+            width: "0.5px"
+          }
+        };
+
+        /*****************************************************************
+         * Set a color visual variable on the renderer. Color visual variables
+         * create continuous ramps that map low data values to weak or
+         * neutral colors and high data values to strong/deep colors. Features
+         * with data values in between the min and max data values are assigned
+         * a color proportionally between the min and max colors.
+         *****************************************************************/
+
+
+         // The only questions I asked were whether different formatting was needed to add more than one stop and how to add commas to field names in the popup
+        const renderer = {
+  type: "simple", // Keeps the simple renderer requirement
+  symbol: defaultSym,
+  label: "County",
+  visualVariables: [
+    {
+      type: "color",
+      field: "X7003_X",
+      legendOptions: {
+        title: "Airline Expenditures"
+      },
+      /* We are manually creating a 'Logarithmic' feel here.
+         By putting most of our color stops at the lower end, 
+         we reveal the variation between smaller counties.
+      */
+      stops: [
+        {
+          value: 365000,    
+          color: "#ffffcc", 
+          label: "< $1M"
+        },
+        {
+          value: 10000000,  
+          color: "#a1dab4", 
+          label: "$10M"
+        },
+        {
+          value: 50000000,  
+          color: "#41b6c4", 
+          label: "$50M"
+        },
+        {
+          value: 200000000, 
+          color: "#2c7fb8", 
+          label: "$200M"
+        },
+        {
+          value: 1000000000, 
+          color: "#253494", 
+          label: "$1B +"
+        }
+      ]
+    }
+  ]
+};
+
+        const povLayer = new FeatureLayer({
+          url:
+            "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Travel%20expenditure%20on%20airline%20fares/FeatureServer/0",
+          renderer: renderer,
+          title: "2022 Travel Expenditures on Airlines in California",
+          
+          popupTemplate: {
+            // autocasts as new PopupTemplate()
+  title: "{NAME}",
+  fieldInfos: [{
+    fieldName: "X7003_X",
+    format: {
+      places: 0,
+      digitSeparator: true
+    }
+    
+  },
+{
+    fieldName: "POPULATION",
+    format: {
+      places: 0,
+      digitSeparator: true
+    }
+    
+  }
+],
+  content: "With a population of {POPULATION}, {NAME} spent ${X7003_X} on airline travel in 2022."
+}
+        });
+
+        const map = new Map({
+          basemap: "gray-vector",
+          layers: [povLayer]
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-119.44944, 37.16611],
+          zoom: 5
+        });
+
+        view.ui.add(
+          new Legend({
+            view: view
+          }),
+          "bottom-left"
+        );
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
