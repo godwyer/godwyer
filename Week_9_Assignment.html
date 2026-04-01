@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Global Earthquakes | 30-Day Activity</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/dark/main.css" />
+  <script src="https://js.arcgis.com/4.28/"></script>
+
+  <style>
+    html, body, #viewDiv {
+      padding: 0; margin: 0; height: 100%; width: 100%;
+      background-color: #242424;
+    }
+
+   
+    .esri-popup__main-container {
+      background-color: #ffffff !important;
+      color: #1a1a1a !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    }
+
+    
+    .esri-popup__header-title {
+      color: #1a1a1a !important;
+      font-weight: 700 !important;
+      text-shadow: none !important; 
+      padding-top: 10px;
+    }
+
+    
+    .esri-popup__button--zoom, 
+    .esri-popup__footer,
+    .esri-popup__icon--collapse {
+      display: none !important;
+    }
+
+    
+    .esri-feature__field-header {
+      color: #666666 !important;
+      font-size: 11px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .esri-feature__field-data {
+      color: #1a1a1a !important;
+      font-weight: 600 !important;
+    }
+
+    
+    .esri-view-surface--inset-outline:focus {
+      outline: none !important;
+    }
+  </style>
+
+  <script>
+    require([
+      "esri/Map", 
+      "esri/views/MapView", 
+      "esri/layers/FeatureLayer", 
+      "esri/widgets/Legend"
+    ], (Map, MapView, FeatureLayer, Legend) => {
+
+      
+      const earthquakeSym = {
+        type: "simple-marker",
+        color: [238, 75, 43, 0.2], 
+        outline: {
+          color: "#EE4B2B",
+          width: 1.5
+        }
+      };
+
+      
+      const renderer = {
+        type: "simple",
+        symbol: earthquakeSym,
+        visualVariables: [{
+          type: "size",
+          field: "mag",
+          legendOptions: { title: "Magnitude (Richter)" },
+          stops: [
+            { value: 2.5, size: 4,   label: "< 3.0" },
+            { value: 4.5, size: 12,  label: "4.5" },
+            { value: 6.0, size: 22,  label: "6.0" },
+            { value: 7.5, size: 40,  label: "7.5+" }
+          ]
+        }]
+      };
+
+      
+      const earthquakeLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Earthquakes_in_the_past_30_days/FeatureServer/0",
+        renderer: renderer,
+        title: "Recent Global Seismic Activity",
+        outFields: ["*"],
+        popupTemplate: {
+          title: "{place}", 
+          content: [
+          {
+     
+      type: "text", 
+      text: "<div style='font-size: 14px; margin-bottom: 8px;'>" +
+            "A magnitude <b>{mag}</b> earthquake has been reported in this area." +
+            "</div>"
+    },  
+          {
+            type: "fields",
+            fieldInfos: [
+              { fieldName: "mag", label: "Magnitude", format: { places: 1 } },
+              { fieldName: "depth", label: "Depth (km)", format: { places: 1 } },
+              { fieldName: "time", label: "Date/Time", format: { dateFormat: "short-date-short-time" } },
+              { fieldName: "tsunami", label: "Tsunami Warning (1=Yes)" }
+            ]
+          }]
+        }
+      });
+
+      const map = new Map({
+        basemap: "dark-gray-vector",
+        layers: [earthquakeLayer]
+      });
+
+     const view = new MapView({
+  container: "viewDiv",
+  map: map,
+  center: [-100, 35],
+  zoom: 2,
+  popup: {
+    
+    alignment: "auto", 
+    
+    autoOpenEnabled: true,
+ 
+    dockEnabled: false,
+    
+    collapseEnabled: false 
+  }
+});
+
+     
+      view.ui.add(new Legend({ view: view }), "bottom-left");
+
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
