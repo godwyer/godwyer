@@ -1,27 +1,15 @@
-title: My Website
-description: Portfolio and projects of Your Name
-remote_theme: pages-themes/slate
+title: My Mapping Portfolio
+description: Spatial Analysis & Interactive Map Gallery
+theme: jekyll-theme-minimal
+logo: /assets/img/map-icon.png # Optional: Add a logo later
+show_downloads: false
 
-# Enable GitHub Pages plugin
-plugins:
-  - jekyll-remote-theme
-  
+# Navigation Links
+nav_links:
+  - title: Global Seismic Activity Week 9
+    url: https://godwyer.github.io/godwyer/Week_9_Assignment.html
+   - title: Airline Expenditures in California - Week 8
+    url: https://godwyer.github.io/godwyer/Week8Assignment.html
+  - title: About the Research
+    url: /about/
 
-# Set navigation order
-nav_order: 1
-
-# Add your navigation structure (optional override)
-nav:
-  - title: "Home"
-    url: /
-  - title: "About Me"
-    url: /about
-  - title: "Projects"
-    url: /projects
-  - title: "Contact"
-    url: /contact
-
-# Optional extras
-color_scheme: light
-logo: /assets/logo.png
-search_enabled: true
