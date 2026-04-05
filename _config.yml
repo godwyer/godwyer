@@ -1,15 +1,10 @@
-title: My Mapping Portfolio
-description: Spatial Analysis & Interactive Map Gallery
+title: Spatial Analysis Portfolio
+description: Interactive Mapping & Research Gallery
 theme: jekyll-theme-minimal
-logo: /assets/img/map-icon.png # Optional: Add a logo later
 show_downloads: false
 
-# Navigation Links
-nav_links:
-  - title: Global Seismic Activity Week 9
-    url: https://godwyer.github.io/godwyer/Week_9_Assignment.html
-   - title: Airline Expenditures in California - Week 8
-    url: https://godwyer.github.io/godwyer/Week8Assignment.html
-  - title: About the Research
-    url: /about/
+# Site Settings
+remote_theme: pages-themes/minimal@v0.2.0
 
+plugins:
+  - jekyll-remote-theme
