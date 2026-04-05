@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Spatial Analytics | Research Portfolio</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script src="https://unpkg.com/framer-motion@10.12.16/dist/framer-motion.js"></script>
+
+  <style>
+    /* 1. Set up the dynamic background */
+    body {
+      background-color: #111111;
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* 2. Abstract "Spatial Grid" animation for background depth */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background-image: linear-gradient(#2a2a2a 1.5px, transparent 1.5px), linear-gradient(90deg, #2a2a2a 1.5px, transparent 1.5px);
+      background-size: 50px 50px;
+      opacity: 0.1;
+      z-index: -1;
+      animation: grid-scroll 30s linear infinite;
+    }
+
+    @keyframes grid-scroll {
+      from { background-position: 0 0; }
+      to { background-position: -50px -50px; }
+    }
+
+    /* 3. The "Glassmorphism" Effect for cards */
+    .glass-card {
+      background: rgba(26, 26, 26, 0.4);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease-out;
+    }
+
+    .glass-card:hover {
+      background: rgba(30, 30, 30, 0.6);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Vibrant indicator line at the top of cards */
+    .indicator-line {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 3px;
+      border-radius: 16px 16px 0 0;
+    }
+  </style>
+
+</head>
+<body class="text-gray-100">
+
+  <div class="bg-grid"></div>
+
+  <div class="motion-safe-reveal container mx-auto px-6 py-16 md:py-24 max-w-7xl">
+    
+    <header class="mb-20 text-center md:text-left">
+      <div class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold uppercase tracking-widest text-emerald-400 bg-emerald-950/40 rounded-full border border-emerald-900/50">
+        Research Portfolio
+      </div>
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter text-white leading-[1.1]">
+        Strategic Spatial <span class="text-emerald-400">Analysis</span>
+      </h1>
+      <p class="mt-6 text-xl md:text-2xl text-gray-400 max-w-3xl leading-relaxed">
+        Leveraging advanced cartographic design to visualize real-time global datasets and optimize decision-making.
+      </p>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      
+      <article class="glass-card relative flex flex-col p-10">
+        <div class="indicator-line bg-emerald-500"></div>
+        
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold tracking-tight text-white">
+            Global Seismic Activity
+          </h2>
+          <div class="px-3 py-1 text-xs font-medium text-emerald-300 bg-emerald-950/70 rounded border border-emerald-800">
+            Real-Time Feed
+          </div>
+        </div>
+
+        <p class="text-gray-400 leading-relaxed flex-grow">
+          A high-performance visualization of global earthquakes over the last 30 days, utilizing **proportional symbols** and tailored popup UI to represent exponential seismic significance.
+        </p>
+        
+        <div class="mt-10 pt-6 border-t border-gray-800">
+          <a href="./earthquakes.html" class="inline-flex items-center text-emerald-400 font-semibold hover:text-emerald-300 transition-colors">
+            Launch Interactive Dashboard
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="glass-card relative flex flex-col p-10 opacity-70">
+        <div class="indicator-line bg-sky-500"></div>
+
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold tracking-tight text-gray-200">
+            Storefront Improvement Grants
+          </h2>
+          <div class="px-3 py-1 text-xs font-medium text-sky-300 bg-sky-950/70 rounded border border-sky-800">
+            In Development
+          </div>
+        </div>
+
+        <p class="text-gray-400 leading-relaxed flex-grow">
+          Spatial analysis mapping economic impact and distribution of city grant funding. Optimized for local Philly data integration and program performance visualization.
+        </p>
+        
+        <div class="mt-10 pt-6 border-t border-gray-800">
+          <span class="text-gray-600 font-medium">Coming Summer 2026</span>
+        </div>
+      </article>
+
+    </main>
+
+    <footer class="mt-28 pt-12 border-t border-gray-900 text-center text-gray-500">
+      <p>&copy; 2026 Spatial Analysis Research. Built with modern JS/CSS architecture.</p>
+      <a href="https://github.com/your-username" class="inline-block mt-4 text-gray-600 hover:text-emerald-400 transition-colors">Github Profile</a>
+    </footer>
+
+  </div>
+
+  <script>
+    const { motion } = window.FramerMotion;
+    const container = document.querySelector('.motion-safe-reveal');
+    
+    motion.animate(
+      container,
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }
+    );
+  </script>
+
+</body>
+</html>
