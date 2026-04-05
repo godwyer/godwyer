@@ -31,6 +31,6 @@ title: Home
 ---
 
 ### About the Work
-This portfolio showcases research-driven mapping projects focusing on natural hazards and economic development. Each map is built with a focus on high-performance data rendering and user-centric UI design.
+This portfolio showcases research-driven mapping projects. Each map is built with a focus on high-performance data rendering and user-centric UI design.
 
 [Contact me via GitHub](https://github.com/your-username)
