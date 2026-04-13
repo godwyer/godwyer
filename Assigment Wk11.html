@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawLineChart);
+
+      function drawLineChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Portion of Semester', 'Sleep Quality'],
+          ['Start',     8],
+          ['First Half',      4],
+          ['Spring Break',    7],
+          ['Second Half', 3],
+          ['Post-Finals', 10]
+        ]);
+
+        var options = {
+          title: 'Sleep Quality Over the Semester',
+          animation: {
+            duration: 1000,
+            easing: 'out',
+            startup: true
+          },
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div style="width: 900px; height: 500px;">
+      <canvas id="piechart1"></canvas>
+    </div>
+    <div id="linechart" style="width: 900px; height: 500px;"></div>
+
+    <script>
+      var ctx = document.getElementById('piechart1').getContext('2d');
+      var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Work', 'School', 'Sleep', 'Travel', 'Other'],
+          datasets: [{
+            data: [8, 9, 5, 1, 2],
+            backgroundColor: [
+              '#4e79a7',
+              '#f28e2b',
+              '#e15759',
+              '#76b7b2',
+              '#59a14f'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Allocation of Time at End of Semester'
+            }
+          },
+          animation: {
+            animateRotate: true,
+            animateScale: true,
+            duration: 2000,
+            easing: 'easeInOutQuart'
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
