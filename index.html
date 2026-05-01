@@ -51,21 +51,25 @@ body {
     padding: 40px 20px;
 }
 
-/* HERO SECTION */
-.hero { text-align:center; z-index: 10; max-width: 900px; }
+/* HERO SECTION - Updated Hierarchy */
+.hero { text-align:center; z-index: 10; max-width: 1000px; }
 
 .hero h1 { 
-    font-size:2.8rem; 
-    line-height: 1.2;
-    background: linear-gradient(to right, #ffffff, #38bdf8);
+    font-size: 5rem; /* Largest Font */
+    margin-bottom: 5px;
+    background: linear-gradient(to bottom, #ffffff, #38bdf8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+    font-weight: 800;
 }
 
-.hero p { 
-    max-width:600px; 
-    margin: 15px auto 25px auto; 
-    opacity:0.8;
+.hero .subheader { 
+    font-size: 1.6rem; /* Slightly Smaller */
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
 }
 
 /* BUTTON */
@@ -94,7 +98,7 @@ body {
     display:flex;
     justify-content:center;
     align-items:center;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .graphic-link { text-decoration: none; cursor: crosshair; display: block; z-index: 5; }
@@ -141,7 +145,7 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
 .achievement-box {
     text-align: center;
     max-width: 800px;
-    margin: 10px 0 30px 0;
+    margin: 10px 0 20px 0;
     padding: 15px;
     border-top: 1px solid rgba(255,255,255,0.1);
     border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -154,17 +158,17 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
     letter-spacing: 0.5px;
 }
 
-/* ANIMATIONS */
-@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
-@keyframes spinReverse { from{transform:rotate(360deg);} to{transform:rotate(0deg);} }
-@keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.3);} }
-@keyframes ripple { 0%{opacity:1; transform:translate(-50%,-50%) scale(1);} 100%{opacity:0; transform:translate(-50%,-50%) scale(3);} }
-
 /* SKILLS SECTION */
 .section { text-align:center; width: 100%; }
 .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:20px; }
 .skill { padding:8px 16px; border:1px solid rgba(255,255,255,0.3); border-radius:30px; transition:0.3s; font-size: 0.85rem; }
 .skill:hover { background:white; color:black; border-color: white; }
+
+/* ANIMATIONS */
+@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+@keyframes spinReverse { from{transform:rotate(360deg);} to{transform:rotate(0deg);} }
+@keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-50%,-50%) scale(1.3);} }
+@keyframes ripple { 0%{opacity:1; transform:translate(-50%,-50%) scale(1);} 100%{opacity:0; transform:translate(-50%,-50%) scale(3);} }
 </style>
 </head>
 
@@ -177,8 +181,8 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
 
     <!-- HERO -->
     <div class="hero">
-        <h1>Garrett O'Dwyer's GIS Portfolio for Web-Based Mapping | Spring 2026</h1>
-        <p>A showcase of spatial data science, interactive cartography, and front-end development.</p>
+        <h1>GIS Portfolio</h1>
+        <div class="subheader">Garrett O'Dwyer | Web-Based Mapping | Temple University | Spring 2026</div>
         <a href="portfolio.html" class="btn">Enter Portfolio Gallery</a>
     </div>
 
