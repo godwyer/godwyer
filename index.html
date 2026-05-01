@@ -9,13 +9,13 @@
 * {margin:0; padding:0; box-sizing:border-box;}
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family:'Segoe UI', sans-serif;
     background:black;
     color:white;
     overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ===== */
+/* BACKGROUND */
 .bg {
     position:fixed;
     width:100%;
@@ -41,35 +41,40 @@ body {
     z-index:-1;
 }
 
-/* ===== HERO ===== */
-.hero {
-    height:70vh;
+/* MAIN LAYOUT FIX */
+.main {
+    min-height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
+    gap:60px; /* THIS FIXES SPACING */
+    padding:40px 20px;
+}
+
+/* HERO */
+.hero {
     text-align:center;
 }
 
 .hero h1 {
-    font-size:4rem;
+    font-size:3.5rem;
 }
 
 .hero p {
     max-width:600px;
-    margin-top:20px;
+    margin-top:15px;
     opacity:0.85;
 }
 
-/* ===== BUTTON ===== */
+/* BUTTON */
 .btn {
-    margin-top:30px;
-    padding:14px 28px;
+    margin-top:20px;
+    padding:12px 26px;
     border:2px solid #38bdf8;
     color:#38bdf8;
     text-decoration:none;
     position:relative;
-    overflow:hidden;
 }
 
 .btn:before {
@@ -85,13 +90,11 @@ body {
 .btn:hover:before {left:0;}
 .btn:hover {color:black;}
 
-/* ===== CIRCLE SYSTEM ===== */
+/* CIRCLE */
 .circle-container {
     display:flex;
     justify-content:center;
     align-items:center;
-    margin:40px 0;
-    perspective:1000px;
 }
 
 .circle {
@@ -102,27 +105,15 @@ body {
     transition:transform 0.2s ease;
 }
 
-/* SVG ring */
+/* SVG rings */
 svg {
     position:absolute;
     width:100%;
     height:100%;
 }
 
-/* rotating rings */
-.outer {
-    animation:spin 20s linear infinite;
-}
-.inner {
-    animation:spinReverse 12s linear infinite;
-}
-
-/* compass ticks */
-.ticks {
-    stroke:#38bdf8;
-    stroke-width:1;
-    opacity:0.6;
-}
+.outer { animation:spin 20s linear infinite; }
+.inner { animation:spinReverse 12s linear infinite; }
 
 /* pulse core */
 .core {
@@ -151,17 +142,18 @@ svg {
     animation:ripple 2s infinite;
 }
 
-/* coordinate text */
+/* COORD TEXT FIXED */
 .coords {
     position:absolute;
-    bottom:-30px;
+    bottom:-35px;
     width:100%;
     text-align:center;
-    font-size:0.8rem;
-    opacity:0.7;
+    font-size:0.9rem;
+    color:#ffffff;
+    text-shadow:0 0 8px rgba(255,255,255,0.8);
 }
 
-/* animations */
+/* ANIMATIONS */
 @keyframes spin {
     from{transform:rotate(0deg);}
     to{transform:rotate(360deg);}
@@ -179,9 +171,8 @@ svg {
     100%{opacity:0; transform:translate(-50%,-50%) scale(3);}
 }
 
-/* ===== SKILLS ===== */
+/* SKILLS */
 .section {
-    padding:60px;
     text-align:center;
 }
 
@@ -189,11 +180,12 @@ svg {
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-    gap:15px;
+    gap:12px;
+    margin-top:15px;
 }
 
 .skill {
-    padding:10px 18px;
+    padding:8px 16px;
     border:1px solid white;
     border-radius:30px;
     transition:0.3s;
@@ -201,7 +193,6 @@ svg {
 .skill:hover {
     background:white;
     color:black;
-    transform:scale(1.1);
 }
 </style>
 </head>
@@ -211,18 +202,20 @@ svg {
 <div class="bg"></div>
 <div class="overlay"></div>
 
+<div class="main">
+
+<!-- HERO -->
 <div class="hero">
     <h1>GIS Portfolio</h1>
-    <p>Interactive mapping, spatial analysis, and data visualization built this semester using modern geospatial tools.</p>
+    <p>Interactive maps, spatial analysis, and data visualization built this semester using modern geospatial tools.</p>
     <a href="portfolio.html" class="btn">Enter Portfolio</a>
 </div>
 
-<!-- ===== SUPER CIRCLE ===== -->
+<!-- CIRCLE -->
 <div class="circle-container">
 <a href="https://www.latlong.net/" target="_blank">
 <div class="circle" id="circle">
 
-<!-- SVG text ring -->
 <svg class="outer">
 <defs>
 <path id="textPath" d="M130,130 m-100,0 a100,100 0 1,1 200,0 a100,100 0 1,1 -200,0"/>
@@ -234,17 +227,14 @@ FIND YOUR LATITUDE || LONGITUDE • FIND YOUR LATITUDE || LONGITUDE •
 </text>
 </svg>
 
-<!-- inner rotating compass -->
 <svg class="inner">
 <circle cx="130" cy="130" r="60" fill="none" stroke="#22c55e"/>
-<line x1="130" y1="70" x2="130" y2="190" class="ticks"/>
-<line x1="70" y1="130" x2="190" y2="130" class="ticks"/>
 </svg>
 
 <div class="core"></div>
 <div class="ripple"></div>
 
-<div class="coords" id="coords">Lat: -- | Long: --</div>
+<div class="coords" id="coords">Detecting location...</div>
 
 </div>
 </a>
@@ -263,11 +253,13 @@ FIND YOUR LATITUDE || LONGITUDE • FIND YOUR LATITUDE || LONGITUDE •
 </div>
 </div>
 
+</div>
+
 <script>
 const circle = document.getElementById("circle");
 const coords = document.getElementById("coords");
 
-/* mouse tilt */
+/* tilt */
 circle.addEventListener("mousemove", (e)=>{
     const rect = circle.getBoundingClientRect();
     let x = e.clientX - rect.left;
@@ -279,17 +271,28 @@ circle.addEventListener("mousemove", (e)=>{
     circle.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
 
-/* reset */
 circle.addEventListener("mouseleave", ()=>{
     circle.style.transform = "rotateX(0) rotateY(0)";
 });
 
-/* fake coordinate generator */
-circle.addEventListener("mousemove", ()=>{
-    let lat = (Math.random()*180-90).toFixed(3);
-    let long = (Math.random()*360-180).toFixed(3);
-    coords.innerText = `Lat: ${lat} | Long: ${long}`;
-});
+/* REAL GEOLOCATION */
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
+        let lat = pos.coords.latitude.toFixed(4);
+        let lon = pos.coords.longitude.toFixed(4);
+        coords.innerText = `Lat: ${lat} | Long: ${lon}`;
+    }, () => fallback());
+} else {
+    fallback();
+}
+
+function fallback(){
+    setInterval(()=>{
+        let lat = (Math.random()*180-90).toFixed(3);
+        let lon = (Math.random()*360-180).toFixed(3);
+        coords.innerText = `Lat: ${lat} | Long: ${lon}`;
+    }, 1000);
+}
 </script>
 
 </body>
