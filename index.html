@@ -1,221 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIS Portfolio | 2026</title>
-    <style>
-        /* 1. MODERN RESET & FONTS */
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            background-color: #05070a;
-            color: #ffffff;
-            font-family: 'Space Grotesk', sans-serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIS Portfolio | Garrett O'Dwyer</title>
 
-        /* 2. DYNAMIC MESH BACKGROUND */
-        .mesh-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-            background: 
-                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(129, 140, 248, 0.15) 0, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(15, 23, 42, 1) 0, transparent 100%);
-        }
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+}
 
-        /* 3. THE MAIN VIEWPORT */
-        .viewport {
-            position: relative;
-            z-index: 10;
-            width: 85vw;
-            height: 80vh;
-            display: flex;
-            gap: 20px;
-        }
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;    
+}
 
-        /* 4. LEFT SIDEBAR (GLASSMORPHISM) */
-        .sidebar {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: 0.4s ease;
-        }
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
 
-        .sidebar:hover {
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.1);
-        }
+.hero p {
+    max-width: 600px;
+    opacity: 0.85;
+}
 
-        /* 5. TYPOGRAPHY */
-        .label {
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #38bdf8;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: block;
-        }
+.btn {
+    margin-top: 30px;
+    padding: 12px 24px;
+    background: #38bdf8;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            line-height: 0.9;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
+.btn:hover {
+    background: #0ea5e9;
+}
 
-        .gradient-text {
-            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
 
-        p {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            max-width: 450px;
-            line-height: 1.6;
-            font-weight: 300;
-        }
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
 
-        /* 6. SKILL PILLS */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 30px;
-        }
+.skill {
+    background: #1e293b;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid #38bdf8;
+}
+</style>
 
-        .pill {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            transition: 0.3s;
-        }
-
-        .pill:hover {
-            background: rgba(56, 189, 248, 0.15);
-            border-color: #38bdf8;
-            color: #38bdf8;
-        }
-
-        /* 7. CTA BUTTON */
-        .cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            background: #ffffff;
-            color: #05070a;
-            padding: 20px 40px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 700;
-            margin-top: 40px;
-            transition: 0.3s;
-        }
-
-        .cta:hover {
-            background: #38bdf8;
-            transform: scale(1.05);
-        }
-
-        /* 8. VISUAL DECORATION (RIGHT SIDE) */
-        .visual-frame {
-            flex: 0.8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .geo-circle {
-            width: 300px;
-            height: 300px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .geo-inner {
-            width: 80%;
-            height: 80%;
-            border: 1px dashed rgba(129, 140, 248, 0.5);
-            border-radius: 50%;
-        }
-
-        /* Responsive Mobile */
-        @media (max-width: 900px) {
-            .viewport { flex-direction: column; height: auto; padding: 20px 0; }
-            .visual-frame { display: none; }
-            .sidebar { padding: 30px; }
-            h1 { font-size: 3rem; }
-        }
-    </style>
 </head>
+
 <body>
 
-    <div class="mesh-bg"></div>
+<div class="hero">
+    <h1>GIS Portfolio</h1>
+    <p>This semester I developed skills in web mapping, geospatial analysis, and interactive data visualization using tools like Leaflet, GeoJSON, and ArcGIS Pro.</p>
+    <a href="portfolio.html" class="btn">View My Work</a>
+</div>
 
-    <main class="viewport">
-        <!-- Main Content Sidebar -->
-        <div class="sidebar">
-            <header>
-                <span class="label">Project Milestone</span>
-                <h1>Cartographic <br> <span class="gradient-text">Excellence</span></h1>
-                <p>Synthesizing spatial data architecture, interactive UI/UX, and municipal policy research into a single digital narrative.</p>
-                
-                <div class="skills-grid">
-                    <span class="pill">ArcGIS API</span>
-                    <span class="pill">GeoJSON</span>
-                    <span class="pill">JavaScript ES6</span>
-                    <span class="pill">Spatial SQL</span>
-                    <span class="pill">Data Viz</span>
-                </div>
-            </header>
-
-            <footer>
-                <a href="projects.html" class="cta">
-                    Launch Gallery 
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-            </footer>
-        </div>
-
-        <!-- Decorative Right Side -->
-        <div class="visual-frame">
-            <div class="geo-circle">
-                <div class="geo-inner"></div>
-                <div style="position: absolute; color: rgba(56, 189, 248, 0.5); font-size: 0.7rem; letter-spacing: 2px;">LAT // LONG</div>
-            </div>
-        </div>
-    </main>
+<div class="section">
+    <h2>What I Learned</h2>
+    <div class="skills">
+        <div class="skill">Leaflet.js</div>
+        <div class="skill">GeoJSON</div>
+        <div class="skill">ArcGIS Pro</div>
+        <div class="skill">Spatial Analysis</div>
+        <div class="skill">Data Visualization</div>
+        <div class="skill">Web Mapping</div>
+    </div>
+</div>
 
 </body>
 </html>
