@@ -41,7 +41,7 @@ body {
     z-index:-1;
 }
 
-/* MAIN LAYOUT */
+/* MAIN LAYOUT - Vertical Balance */
 .main {
     min-height:100vh;
     display:flex;
@@ -82,26 +82,27 @@ body {
     display:flex;
     justify-content:center;
     align-items:center;
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
-/* LINK WRAPPER */
+/* GRAPHIC LINK WRAPPER */
 .graphic-link {
     text-decoration: none;
-    color: inherit;
+    cursor: crosshair;
     display: block;
+    z-index: 5;
 }
 
 .circle {
     width:260px;
     height:260px;
     position:relative;
-    cursor:crosshair;
     transition:transform 0.2s ease;
+    transform-style: preserve-3d;
 }
 
 /* SVG rings */
-svg { position:absolute; width:100%; height:100%; }
+svg { position:absolute; width:100%; height:100%; pointer-events: none;}
 .outer { animation:spin 20s linear infinite; }
 .inner { animation:spinReverse 12s linear infinite; }
 
@@ -117,20 +118,20 @@ svg { position:absolute; width:100%; height:100%; }
     animation:ripple 2s infinite;
 }
 
-/* COORD TEXT - Positioned inside the green circle */
+/* COORDINATES - Contained within green circle */
 .coords {
     position:absolute;
-    top: 70%; /* Moved inside the graphic */
+    top: 65%; 
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     text-align:center;
     font-size:0.85rem;
-    color:#22c55e; /* Green to match the inner circle */
+    color:#22c55e;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    pointer-events: none; /* Allows click to pass through to link */
-    text-shadow: 0 0 5px black;
+    pointer-events: none; /* Allows the click to go through to the link */
+    text-shadow: 0px 0px 4px rgba(0,0,0,0.9);
 }
 
 /* ANIMATIONS */
@@ -140,9 +141,9 @@ svg { position:absolute; width:100%; height:100%; }
 @keyframes ripple { 0%{opacity:1; transform:translate(-50%,-50%) scale(1);} 100%{opacity:0; transform:translate(-50%,-50%) scale(3);} }
 
 /* SKILLS SECTION */
-.section { text-align:center; width: 100%; padding-bottom: 20px; }
+.section { text-align:center; width: 100%; }
 .skills { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:20px; }
-.skill { padding:8px 16px; border:1px solid rgba(255,255,255,0.4); border-radius:30px; transition:0.3s; font-size: 0.9rem; }
+.skill { padding:8px 16px; border:1px solid rgba(255,255,255,0.3); border-radius:30px; transition:0.3s; font-size: 0.85rem; }
 .skill:hover { background:white; color:black; border-color: white; }
 </style>
 </head>
@@ -154,14 +155,14 @@ svg { position:absolute; width:100%; height:100%; }
 
 <div class="main">
 
-    <!-- TOP -->
+    <!-- HERO -->
     <div class="hero">
         <h1>GIS Portfolio</h1>
         <p>Interactive maps, spatial analysis, and data visualization built this semester using modern geospatial tools.</p>
         <a href="portfolio.html" class="btn">Enter Portfolio</a>
     </div>
 
-    <!-- MIDDLE -->
+    <!-- CENTERED GRAPHIC LINK -->
     <div class="circle-container">
         <a href="https://www.latlong.net/" target="_blank" class="graphic-link">
             <div class="circle" id="circle">
@@ -186,7 +187,7 @@ svg { position:absolute; width:100%; height:100%; }
         </a>
     </div>
 
-    <!-- BOTTOM -->
+    <!-- SKILLS SECTION -->
     <div class="section">
         <h2>Skills & Tools</h2>
         <div class="skills">
@@ -212,21 +213,19 @@ circle.addEventListener("mousemove", (e)=>{
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
-    // Calculate distance from center to check if inside green circle (radius 60)
+    // Check distance for inner green circle (radius 60)
     const distance = Math.sqrt(Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2));
 
-    // Tilt Effect (Always active on hover)
+    // Tilt Effect
     let rotateX = -(mouseY - centerY)/12;
     let rotateY = (mouseX - centerX)/12;
     circle.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-    // Coordinate logic: Only display if inside the inner green circle (radius ~60px)
-    if (distance < 70) {
-        // Real-world Philadelphia bounds roughly: Lat 39.9, Long -75.1
-        // We map mouse movement within the center to a realistic PHL range
-        let phlLat = (39.9526 + (centerY - mouseY) / 500).toFixed(4);
-        let phlLong = (-75.1652 + (mouseX - centerX) / 500).toFixed(4);
-        coords.innerText = `${phlLat}, ${phlLong}`;
+    // Philadelphia Area Simulated Coordinates
+    if (distance < 65) {
+        let lat = (39.9526 + (centerY - mouseY) / 600).toFixed(4);
+        let lon = (-75.1652 + (mouseX - centerX) / 600).toFixed(4);
+        coords.innerText = `${lat}, ${lon}`;
     } else {
         coords.innerText = "";
     }
