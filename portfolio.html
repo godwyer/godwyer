@@ -1,172 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | GIS Portfolio</title>
 
-<style>
-body {
-    margin:0;
-    font-family:'Segoe UI', sans-serif;
-    background:#020617;
-    color:white;
-}
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* grid */
-.grid {
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
-    gap:30px;
-    padding:40px;
-}
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #020617;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-/* card */
-.card {
-    background: rgba(255,255,255,0.05);
-    border-radius:15px;
-    overflow:hidden;
-    transition:0.3s;
-    position:relative;
-    backdrop-filter: blur(10px);
-}
+        /* SHARED BACKGROUND WITH INDEX */
+        .bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0ea5e9, #9333ea, #22c55e, #f59e0b);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -2;
+        }
 
-/* glow effect */
-.card:before {
-    content:'';
-    position:absolute;
-    inset:0;
-    border-radius:15px;
-    padding:2px;
-    background:linear-gradient(45deg,#38bdf8,#9333ea,#22c55e);
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-}
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-/* tilt */
-.card:hover {
-    transform: rotateX(5deg) rotateY(5deg) scale(1.03);
-}
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: -1;
+        }
 
-.card img {
-    width:100%;
-    height:200px;
-    object-fit:cover;
-}
+        header {
+            padding: 60px 40px 20px 40px;
+            text-align: center;
+        }
 
-.content {
-    padding:20px;
-}
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #38bdf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-h3 {
-    margin-bottom:10px;
-}
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-p {
-    font-size:0.9rem;
-    opacity:0.8;
-}
+        .back-link:hover { opacity: 0.7; transform: translateX(-5px); }
 
-a {text-decoration:none; color:inherit;}
-</style>
+        /* GRID LAYOUT */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* CARD STYLING */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Glow border on hover */
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: 0.4s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover img { opacity: 1; }
+
+        .content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h3 {
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            color: #38bdf8;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .tags {
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+
+    </style>
 </head>
 
 <body>
 
-<div class="grid">
+    <div class="bg"></div>
+    <div class="overlay"></div>
 
-<a href="https://godwyer.github.io/godwyer/Three_Us_Cities.html" target="_blank">
-<div class="card">
-<img src="images/Week_2.jpg">
-<div class="content">
-<h3>Week 2</h3>
-<p>Lorem ipsum dolor sit amet. Visualization of three US cities.</p>
-<p><strong>Skills:</strong> Leaflet, Mapping</p>
-</div>
-</div>
-</a>
+    <header>
+        <a href="index.html" class="back-link">← BACK TO NAVIGATOR</a>
+        <h1>Spatial Projects</h1>
+        <p style="opacity: 0.6;">A collection of geospatial web applications and data visualizations.</p>
+    </header>
 
-<a href="https://godwyer.github.io/godwyer/Week_3_Program.html" target="_blank">
-<div class="card">
-<img src="images/Week_3.jpg">
-<div class="content">
-<h3>Week 3</h3>
-<p>Lorem ipsum dolor sit amet. Programmatic mapping logic.</p>
-<p><strong>Skills:</strong> JS, Layers</p>
-</div>
-</div>
-</a>
+    <div class="grid">
 
-<a href="https://godwyer.github.io/godwyer/Geojson_Assignment_Filter.html" target="_blank">
-<div class="card">
-<img src="images/Week_4.jpg">
-<div class="content">
-<h3>Week 4</h3>
-<p>Lorem ipsum dolor sit amet. GeoJSON filtering.</p>
-<p><strong>Skills:</strong> GeoJSON</p>
-</div>
-</div>
-</a>
+        <!-- WEEK 2 -->
+        <a href="https://godwyer.github.io/godwyer/Three_Us_Cities.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_2.jpg" alt="Three US Cities Map">
+                <div class="content">
+                    <h3>Urban Comparison</h3>
+                    <p>An initial exploration of Leaflet.js, mapping markers and popups for three distinct US metropolitan areas.</p>
+                    <div class="tags">
+                        <span class="tag">Leaflet</span>
+                        <span class="tag">Markers</span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-<a href="https://godwyer.github.io/godwyer/wk5_assignment_Submission.html" target="_blank">
-<div class="card">
-<img src="images/Week_5.jpg">
-<div class="content">
-<h3>Week 5</h3>
-<p>Lorem ipsum dolor sit amet. Interactive layers.</p>
-<p><strong>Skills:</strong> UI Controls</p>
-</div>
-</div>
-</a>
+        <!-- WEEK 3 -->
+        <a href="https://godwyer.github.io/godwyer/Week_3_Program.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_3.jpg" alt="Programmatic Mapping">
+                <div class="content">
+                    <h3>Automated Geometry</h3>
+                    <p>Leveraging JavaScript arrays and loops to programmatically generate map layers and features.</p>
+                    <div class="tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Loops</span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-<a href="https://godwyer.github.io/godwyer/wk6_assignment_Submission.html" target="_blank">
-<div class="card">
-<img src="images/Week_6.jpg">
-<div class="content">
-<h3>Week 6</h3>
-<p>Lorem ipsum dolor sit amet. Map interactivity.</p>
-<p><strong>Skills:</strong> Events</p>
-</div>
-</div>
-</a>
+        <!-- WEEK 4 -->
+        <a href="https://godwyer.github.io/godwyer/Geojson_Assignment_Filter.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_4.jpg" alt="GeoJSON Filter">
+                <div class="content">
+                    <h3>GeoJSON Querying</h3>
+                    <p>Implementing functional filters to parse and display specific subsets of GeoJSON spatial data.</p>
+                    <div class="tags">
+                        <span class="tag">GeoJSON</span>
+                        <span class="tag">Filtering</span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-<a href="https://godwyer.github.io/godwyer/Week8Assignment.html" target="_blank">
-<div class="card">
-<img src="images/Week_8.jpg">
-<div class="content">
-<h3>Week 8</h3>
-<p>Lorem ipsum dolor sit amet. Advanced mapping.</p>
-<p><strong>Skills:</strong> Layers</p>
-</div>
-</div>
-</a>
+        <!-- WEEK 5 -->
+        <a href="https://godwyer.github.io/godwyer/wk5_assignment_Submission.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_5.jpg" alt="UI Controls">
+                <div class="content">
+                    <h3>Interface Controls</h3>
+                    <p>Building custom UI toggles and buttons to give the user control over map layer visibility.</p>
+                    <div class="tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Dynamic Layers</span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-<a href="https://godwyer.github.io/godwyer/Week_9_Assignment.html" target="_blank">
-<div class="card">
-<img src="images/Week_9.jpg">
-<div class="content">
-<h3>Week 9</h3>
-<p>Lorem ipsum dolor sit amet. UX interactions.</p>
-<p><strong>Skills:</strong> UX</p>
-</div>
-</div>
-</a>
+        <!-- WEEK 6 -->
+        <a href="https://godwyer.github.io/godwyer/wk6_assignment_Submission.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_6.jpg" alt="Event Interactivity">
+                <div class="content">
+                    <h3>Event-Driven Maps</h3>
+                    <p>Advanced interactivity utilizing mouse events and event listeners for a more responsive user experience.</p>
+                    <div class="tags">
+                        <span class="tag">Event Listeners</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-<a href="https://godwyer.github.io/godwyer/Assigment Wk11.html" target="_blank">
-<div class="card">
-<img src="images/Week_11.jpg">
-<div class="content">
-<h3>Week 11</h3>
-<p>Lorem ipsum dolor sit amet. Charts + data viz.</p>
-<p><strong>Skills:</strong> Visualization</p>
-</div>
-</div>
-</a>
+        <!-- WEEK 8 -->
+        <a href="https://godwyer.github.io/godwyer/Week8Assignment.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_8.jpg" alt="Advanced Mapping">
+                <div class="content">
+                    <h3>Spatial Hierarchy</h3>
+                    <p>Structuring complex data into organized layer groups for better map legibility and hierarchy.</p>
+                    <div class="tags">
+                        <span class="tag">Data Structure</span>
+                        <span class="tag">LayerGroups</span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
-</div>
+        <!-- WEEK 9 -->
+        <a href="https://godwyer.github.io/godwyer/Week_9_Assignment.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_9.jpg" alt="UX Interactions">
+                <div class="content">
+                    <h3>User Flow Design</h3>
+                    <p>Designing the "Enter Portfolio" flow and coordinating animations with spatial context.</p>
+                    <div class="tags">
+                        <span class="tag">Flow</span>
+                        <span class="tag">Transitions</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- WEEK 11 -->
+        <a href="https://godwyer.github.io/godwyer/Assigment Wk11.html" target="_blank">
+            <div class="card">
+                <img src="images/Week_11.jpg" alt="Data Visualization">
+                <div class="content">
+                    <h3>Full Data Viz</h3>
+                    <p>Integrating external charting libraries with Leaflet to create a comprehensive data dashboard.</p>
+                    <div class="tags">
+                        <span class="tag">Charts.js</span>
+                        <span class="tag">Dashboard</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
 
 </body>
 </html>
