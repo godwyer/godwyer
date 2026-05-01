@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIS Portfolio</title>
+<title>Garrett O'Dwyer | GIS Portfolio</title>
 
 <style>
 * {margin:0; padding:0; box-sizing:border-box;}
@@ -41,20 +41,32 @@ body {
     z-index:-1;
 }
 
-/* MAIN LAYOUT - Vertical Balance */
+/* MAIN LAYOUT */
 .main {
     min-height:100vh;
     display:flex;
     flex-direction:column;
     justify-content: space-between;
     align-items:center;
-    padding: 60px 20px;
+    padding: 40px 20px;
 }
 
-/* HERO */
-.hero { text-align:center; z-index: 10; }
-.hero h1 { font-size:3.5rem; }
-.hero p { max-width:600px; margin: 15px auto 25px auto; opacity:0.85; }
+/* HERO SECTION */
+.hero { text-align:center; z-index: 10; max-width: 900px; }
+
+.hero h1 { 
+    font-size:2.8rem; 
+    line-height: 1.2;
+    background: linear-gradient(to right, #ffffff, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p { 
+    max-width:600px; 
+    margin: 15px auto 25px auto; 
+    opacity:0.8;
+}
 
 /* BUTTON */
 .btn {
@@ -76,22 +88,16 @@ body {
 .btn:hover:before {left:0;}
 .btn:hover {color:black;}
 
-/* CIRCLE CONTAINER */
+/* GRAPHIC CONTAINER */
 .circle-container {
     flex-grow: 1;
     display:flex;
     justify-content:center;
     align-items:center;
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
-/* GRAPHIC LINK WRAPPER */
-.graphic-link {
-    text-decoration: none;
-    cursor: crosshair;
-    display: block;
-    z-index: 5;
-}
+.graphic-link { text-decoration: none; cursor: crosshair; display: block; z-index: 5; }
 
 .circle {
     width:260px;
@@ -101,12 +107,10 @@ body {
     transform-style: preserve-3d;
 }
 
-/* SVG rings */
 svg { position:absolute; width:100%; height:100%; pointer-events: none;}
 .outer { animation:spin 20s linear infinite; }
 .inner { animation:spinReverse 12s linear infinite; }
 
-/* Core elements */
 .core {
     position:absolute; top:50%; left:50%; width:30px; height:30px;
     background:#22c55e; border-radius:50%; transform:translate(-50%,-50%);
@@ -118,7 +122,6 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
     animation:ripple 2s infinite;
 }
 
-/* COORDINATES - Contained within green circle */
 .coords {
     position:absolute;
     top: 65%; 
@@ -130,8 +133,25 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
     color:#22c55e;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    pointer-events: none; /* Allows the click to go through to the link */
+    pointer-events: none;
     text-shadow: 0px 0px 4px rgba(0,0,0,0.9);
+}
+
+/* ACHIEVEMENT TEXT */
+.achievement-box {
+    text-align: center;
+    max-width: 800px;
+    margin: 10px 0 30px 0;
+    padding: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.achievement-box p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    color: #22c55e;
+    letter-spacing: 0.5px;
 }
 
 /* ANIMATIONS */
@@ -157,12 +177,12 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
 
     <!-- HERO -->
     <div class="hero">
-        <h1>GIS Portfolio</h1>
-        <p>Interactive maps, spatial analysis, and data visualization built this semester using modern geospatial tools.</p>
-        <a href="portfolio.html" class="btn">Enter Portfolio</a>
+        <h1>Garrett O'Dwyer's GIS Portfolio for Web-Based Mapping | Spring 2026</h1>
+        <p>A showcase of spatial data science, interactive cartography, and front-end development.</p>
+        <a href="portfolio.html" class="btn">Enter Portfolio Gallery</a>
     </div>
 
-    <!-- CENTERED GRAPHIC LINK -->
+    <!-- CENTERED GRAPHIC -->
     <div class="circle-container">
         <a href="https://www.latlong.net/" target="_blank" class="graphic-link">
             <div class="circle" id="circle">
@@ -175,11 +195,9 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
                         <textPath href="#textPath" startOffset="50%">• FIND YOUR LATITUDE || LONGITUDE</textPath>
                     </text>
                 </svg>
-
                 <svg class="inner">
                     <circle cx="130" cy="130" r="60" fill="none" stroke="#22c55e" stroke-width="1" stroke-dasharray="5 5"/>
                 </svg>
-
                 <div class="core"></div>
                 <div class="ripple"></div>
                 <div class="coords" id="coords"></div>
@@ -187,16 +205,21 @@ svg { position:absolute; width:100%; height:100%; pointer-events: none;}
         </a>
     </div>
 
+    <!-- ACHIEVEMENT LINE -->
+    <div class="achievement-box">
+        <p><strong>Achievement Unlocked:</strong> Leveraging code to develop high-quality, data-intensive maps utilizing a variety of tools, methods, and platforms</p>
+    </div>
+
     <!-- SKILLS SECTION -->
     <div class="section">
-        <h2>Skills & Tools</h2>
+        <h2>Expertise & Integration</h2>
         <div class="skills">
-            <div class="skill">Leaflet</div>
+            <div class="skill">Leaflet.js</div>
             <div class="skill">GeoJSON</div>
-            <div class="skill">ArcGIS Pro</div>
+            <div class="skill">ArcGIS API</div>
             <div class="skill">Spatial Analysis</div>
-            <div class="skill">Data Visualization</div>
-            <div class="skill">Web Mapping</div>
+            <div class="skill">JavaScript ES6</div>
+            <div class="skill">Responsive Web Mapping</div>
         </div>
     </div>
 
@@ -212,16 +235,12 @@ circle.addEventListener("mousemove", (e)=>{
     const centerY = rect.height / 2;
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-
-    // Check distance for inner green circle (radius 60)
     const distance = Math.sqrt(Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2));
 
-    // Tilt Effect
     let rotateX = -(mouseY - centerY)/12;
     let rotateY = (mouseX - centerX)/12;
     circle.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-    // Philadelphia Area Simulated Coordinates
     if (distance < 65) {
         let lat = (39.9526 + (centerY - mouseY) / 600).toFixed(4);
         let lon = (-75.1652 + (mouseX - centerX) / 600).toFixed(4);
