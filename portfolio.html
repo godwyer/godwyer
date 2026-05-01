@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects</title>
+
+<style>
+body {
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background:#020617;
+    color:white;
+}
+
+/* grid */
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+    gap:30px;
+    padding:40px;
+}
+
+/* card */
+.card {
+    background: rgba(255,255,255,0.05);
+    border-radius:15px;
+    overflow:hidden;
+    transition:0.3s;
+    position:relative;
+    backdrop-filter: blur(10px);
+}
+
+/* glow effect */
+.card:before {
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:15px;
+    padding:2px;
+    background:linear-gradient(45deg,#38bdf8,#9333ea,#22c55e);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* tilt */
+.card:hover {
+    transform: rotateX(5deg) rotateY(5deg) scale(1.03);
+}
+
+.card img {
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.content {
+    padding:20px;
+}
+
+h3 {
+    margin-bottom:10px;
+}
+
+p {
+    font-size:0.9rem;
+    opacity:0.8;
+}
+
+a {text-decoration:none; color:inherit;}
+</style>
+</head>
+
+<body>
+
+<div class="grid">
+
+<a href="https://godwyer.github.io/godwyer/Three_Us_Cities.html" target="_blank">
+<div class="card">
+<img src="images/Week_2.jpg">
+<div class="content">
+<h3>Week 2</h3>
+<p>Lorem ipsum dolor sit amet. Visualization of three US cities.</p>
+<p><strong>Skills:</strong> Leaflet, Mapping</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/Week_3_Program.html" target="_blank">
+<div class="card">
+<img src="images/Week_3.jpg">
+<div class="content">
+<h3>Week 3</h3>
+<p>Lorem ipsum dolor sit amet. Programmatic mapping logic.</p>
+<p><strong>Skills:</strong> JS, Layers</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/Geojson_Assignment_Filter.html" target="_blank">
+<div class="card">
+<img src="images/Week_4.jpg">
+<div class="content">
+<h3>Week 4</h3>
+<p>Lorem ipsum dolor sit amet. GeoJSON filtering.</p>
+<p><strong>Skills:</strong> GeoJSON</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/wk5_assignment_Submission.html" target="_blank">
+<div class="card">
+<img src="images/Week_5.jpg">
+<div class="content">
+<h3>Week 5</h3>
+<p>Lorem ipsum dolor sit amet. Interactive layers.</p>
+<p><strong>Skills:</strong> UI Controls</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/wk6_assignment_Submission.html" target="_blank">
+<div class="card">
+<img src="images/Week_6.jpg">
+<div class="content">
+<h3>Week 6</h3>
+<p>Lorem ipsum dolor sit amet. Map interactivity.</p>
+<p><strong>Skills:</strong> Events</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/Week8Assignment.html" target="_blank">
+<div class="card">
+<img src="images/Week_8.jpg">
+<div class="content">
+<h3>Week 8</h3>
+<p>Lorem ipsum dolor sit amet. Advanced mapping.</p>
+<p><strong>Skills:</strong> Layers</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/Week_9_Assignment.html" target="_blank">
+<div class="card">
+<img src="images/Week_9.jpg">
+<div class="content">
+<h3>Week 9</h3>
+<p>Lorem ipsum dolor sit amet. UX interactions.</p>
+<p><strong>Skills:</strong> UX</p>
+</div>
+</div>
+</a>
+
+<a href="https://godwyer.github.io/godwyer/Assigment Wk11.html" target="_blank">
+<div class="card">
+<img src="images/Week_11.jpg">
+<div class="content">
+<h3>Week 11</h3>
+<p>Lorem ipsum dolor sit amet. Charts + data viz.</p>
+<p><strong>Skills:</strong> Visualization</p>
+</div>
+</div>
+</a>
+
+</div>
+
+</body>
+</html>
